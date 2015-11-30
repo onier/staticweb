@@ -9,47 +9,45 @@ and open the template in the editor.
         <title>登陆</title>
         <meta charset="UTF-8">
         <!--<link rel="stylesheet" href="css/style.css"/>-->
-        <link href="jquery-ui.css" rel="stylesheet">
+        <link href="jquery.mobile-1.3.1.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css">
             .className{
-                width:800px;
-                height:600px;
+/*                width:800px;
+                height:400px;*/
                 position:absolute;
                 left:50%;
                 top:50%;
-                margin:-75px 0 0 -135px;
+                margin:-100px 0 0 -160px;
             }
         </style> 
-        <style>
+<!--        <style>
             label {
                 display: inline-block;
                 width: 5em;
             }
-        </style>
+        </style>-->
     </head>
-    <body id="exampleBody" style=" background-image: url('image/background.jpg')">
-        <div class="className" style="font-size: 25px">
+    <body id="exampleBody">
+        <div class="className">
             <table style="border-collapse:separate; border-spacing:10px;">
                 <tr>
-                    <td>用户名：</td><td><input type="text" id="userName" title="请输入用户名 用户名\域名" style="font-size: 25px;width: 200px"/></td>
+                    <td>用户名：</td><td><input type="text" id="userName" placeholder="用户名 用户名\域名"/></td>
                 </tr>
                 <tr>
-                    <td>密 码:  </td><td><input type="password" id="password" title="请输入密码"  style="font-size: 25px;width: 200px"/> </br></td>
+                    <td>密 码:  </td><td><input type="password" id="password" placeholder="请输入密码"/></td>
                 </tr>
                 <tr>
-                    <td>    </td><td style=" text-align: right"><button id="login" style="font-size: 25px" > 登陆</button>  &nbsp;</td>
+                    <td>    </td><td style=" text-align: right"><button id="login"> 登陆</button></td>
                 </tr>
             </table>
-
         </div>
-        <script src="external/jquery/jquery.js"></script>
+        <!--<script src="external/jquery/jquery.js"></script>-->
         <script src="store+json2.min.js"></script>
-        <script src="jquery-ui.js"></script> <script>
-            //        显示提示
-            $(function () {
-                $(document).tooltip();
-            });
+        <script src="jquery-2.0.2.js"></script>
+        <script src="jquery.mobile-1.3.1.js"></script>
+        <!--<script src="jquery-ui.js"></script> <script>-->
+        <script>
             //        登陆
             $(function () {
                 $("button").click(function () {
@@ -61,9 +59,6 @@ and open the template in the editor.
                         type: "post",
                         dataType: "json",
                         data: {userName: username, password: password},
-                        complete: function () {
-                            alert("AJAX - complete()");
-                        },
                         success: function (strData) {
                             store.set("userData", strData);
                             window.location.replace("main.html");
