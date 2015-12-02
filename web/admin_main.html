@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>管理页面</title>
+        <meta charset="UTF-8">    
+        <link href="jquery.mobile-1.4.5.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            #pageOne {
+                width: 30%;
+                float: left;
+                position: relative;
+            }
+
+            #pageTwo {
+                display: inline-block;
+                width: 70%;
+                float: right;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="pageOne" >
+            <h2>用户列表</h2>
+            <ul data-role="listview" id="userList">    
+                <li class="userClass"><a href="#">默认是右箭头</a></li>
+            </ul>
+        </div>
+        <div data-role="page" id="pageTwo">Hi Page two</div>
+        <script src="store+json2.min.js"></script>
+        <script src="jquery.min.js"></script>
+        <script src="jquery.mobile-1.4.5.min.js"></script>
+        <script>
+            var uerArrays;
+            function fn(e) {
+                alert(e.text);
+            }
+            $(function () {
+                $.ajax({
+                    url: "/deploy",
+                    type: "post",
+                    dataType: "json",
+                    data: {command: "getUserEntry"},
+                    success: function (obj) {
+                        uerArrays = obj;
+                        for (var i = 0; i < obj.length; i++) {
+                            $("#userList").append(' <li class="userClass"><a  href="javascript:void(0)" onclick="fn(this)">' + obj[i].domainName + "\\" + obj[i].userName + '</a></li>');
+                        }
+                        $("#userList").listview('refresh');
+                    }
+                });
+            });
+//            $(function () {
+//                $(".userClass").click(function (e) {
+//                    alert(e);
+//                });
+//            });
+        </script>
+    </body>
+</html>

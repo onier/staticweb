@@ -39,10 +39,10 @@ and open the template in the editor.
         <div class="className">
             <table style="border-collapse:separate; border-spacing:10px;">
                 <tr>
-                    <td>用户名：</td><td><input type="text" id="userName" placeholder="用户名 用户名\域名" value="xenapp\user1"/></td>
+                    <td>用户名：</td><td><input type="text" id="userName" placeholder="管理员用户名" value="admin"/></td>
                 </tr>
                 <tr>
-                    <td>密 码:  </td><td><input type="password" id="password" placeholder="请输入密码" value="Keqisoft!"/></td>
+                    <td>密 码:  </td><td><input type="password" id="password" placeholder="请输入密码" value="admin"/></td>
                 </tr>
                 <tr>
                     <td>    </td><td style=" text-align: right"><button id="login"> 登陆</button></td>
@@ -60,20 +60,20 @@ and open the template in the editor.
             //        登陆
             $(function () {
                 $("button").click(function () {
-                    var username = ($("#userName").val());
-                    var password = $("#password").val();
+                    var loginName = ($("#userName").val());
+                    var loginPassword = $("#password").val();
                     jQuery.support.cors = true;
                     $.ajax({
-                        url: "/user",
+                        url: "/deploy",
                         type: "post",
                         dataType: "json",
-                        data: {userName: username, password: password},
+                        data: {loginName: loginName, loginPassword: loginPassword, type: "0", command: "login"},
                         success: function (strData) {
-                            if (strData === null) {
-                                alert("你没有任何分配的资源");
+                            if (strData !== 1) {
+                                alert("登录失败");
+                            } else {
+                                window.location.replace("admin_main.html");
                             }
-                            store.set("userData", strData);
-                            window.location.replace("main.html");
                         }
                     });
                 });
