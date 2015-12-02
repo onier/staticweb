@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <link href="jquery.mobile-1.4.5.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery.min.js"></script>
+        <script>
+            $(document).bind('mobileinit', function () {
+                $.mobile.changePage.defaults.changeHash = false;
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            });
+        </script>
+        <script src="jquery.mobile-1.4.5.min.js"></script>
+        <script src="store+json2.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-role="page"  id="readyDeploy">
+            <div data-role="header">
+                <h1>新建部署</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content" >
+                <table style="margin:0 auto;width: 400px">
+                    <tr>
+                        <td><label>域名:</label></td><td><input type=text id="domainURl"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>域地址:</label></td><td><input type=text id="domainAddr"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>管理员：</label></td><td><input type=text id="userName"/></td>
+                    </tr>
+                    <tr>
+                        <td><label>密码：</label></td><td><input type=password id="password"/></td>
+                    </tr>
+                    <tr>
+                        <td><label> </label></td><td align=right><button id="test" data-inline="true" >&nbsp;测试&nbsp;</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div data-role="footer">
+                <h1>底部文本</h1>
+            </div>
+        </div>
+        <div data-role="page" id="selectComputer">
+            <div data-role="header">
+                <h1>新建部署</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                <div id="selectComputerDiv"  style="margin:0 auto;width: 400px">
+                    <fieldset data-role="controlgroup">
+                        <legend>选择计算机</legend>
+                        <input type="radio" name="radio-mini" id="radio-mini-1" value="choice-1" checked="checked" />
+                        <label for="radio-mini-1">Computer1</label>
+
+                        <input type="radio" name="radio-mini" id="radio-mini-2" value="choice-2"  />
+                        <label for="radio-mini-2">Computer2</label>
+
+                        <input type="radio" name="radio-mini" id="radio-mini-3" value="choice-3"  />
+                        <label for="radio-mini-3">Computer3</label>
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer">
+                <h1>底部文本</h1>
+            </div>
+        </div>
+        <div data-role="page" id="selectUser">
+            <div data-role="header">
+                <h1>新建部署</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                <div id="selectUserDiv"  style="margin:0 auto;width: 400px">
+                    <fieldset data-role="controlgroup">
+                        <legend>选择用户</legend>
+                        <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1"/>
+                        <label for="radio-choice-1">user1</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
+                        <label for="radio-choice-2">user2</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
+                        <label for="radio-choice-3">user3</label>
+
+                        <input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
+                        <label for="radio-choice-4">user4</label>
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer">
+                <h1>底部文本</h1>
+            </div>
+        </div>
+        <div data-role="page" id="deploy">
+            <div data-role="header">
+                <h1>新建部署</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+                <div id="dopoyDiv"  style="margin:0 auto;width: 400px">
+
+                </div>
+            </div>
+            <div data-role="footer">
+                <h1>底部文本</h1>
+            </div>
+        </div>
+    </body>
+</html>
