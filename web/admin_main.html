@@ -9,37 +9,82 @@ and open the template in the editor.
         <title>管理页面</title>
         <meta charset="UTF-8">    
         <link href="jquery.mobile-1.4.5.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="jqm-docs.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style type="text/css">
-            #pageOne {
-                width: 30%;
-                float: left;
+        <style>
+            .ui-dialog-contain {
+                width: 100%;
+                max-width: 800px;
+                min-height: 600px;
+                max-height: 600px;
+                padding: 0;
                 position: relative;
-            }
-
-            #pageTwo {
-                display: inline-block;
-                width: 70%;
-                float: right;
-                position: relative;
+                top: -15px;
             }
         </style>
     </head>
     <body>
-        <div data-role="page" id="pageOne" >
-            <h2>用户列表</h2>
-            <ul data-role="listview" id="userList">    
-                <li class="userClass"><a href="#">默认是右箭头</a></li>
-            </ul>
+        <div  data-role="page" id="jqm-home" class="type-home">
+            <div data-role="content">
+                <div  class="content-secondary"  data-theme="a" >
+                    <a href="dialog1.html" data-rel="dialog" data-inline="true" data-role="button">Open dialog</a>
+                    <br/><br/><br/>
+                    <ul data-role="listview" id="userList">
+                        <li data-role="list-divider"> 用户列表 </li>
+                    </ul>
+                </div>
+                <div class="content-primary"  >
+                    <div><h2>用户信息</h2></div>
+                    <label>用户名</label>
+                    <input type="text" id="userName"/> 
+                    <label>访问方式</label>
+                    <input type="text" id="mode"/> 
+                    <label>域</label>
+                    <input type="text" id="domain"/> 
+                    <label>虚拟机</label>
+                    <div>
+                        <ul data-role="listview" id="desktopList">
+                        </ul>  
+                    </div>
+                    <br/><br/>
+                    <input type="button" value="删除"/>
+                </div>
+            </div>
         </div>
-        <div data-role="page" id="pageTwo">Hi Page two</div>
-        <script src="store+json2.min.js"></script>
         <script src="jquery.min.js"></script>
+        
         <script src="jquery.mobile-1.4.5.min.js"></script>
+        <script src="store+json2.min.js"></script>
+        <script src="jquery.mobile.themeswitcher.js"></script>
         <script>
-            var uerArrays;
+            var userArrays;
+            function getUser(text) {
+                for (var i = 0; i < userArrays.length; i++) {
+                    if (text === (userArrays[i].domainName + "\\" + userArrays[i].userName)) {
+                        return userArrays[i];
+                    }
+                }
+                return null;
+            }
             function fn(e) {
-                alert(e.text);
+                var user = (getUser(e.text));
+                $("#userName").val(user.userName);
+                if (user.mode === 0) {
+                    $("#mode").val("禁止访问");
+                }
+                if (user.mode === 1) {
+                    $("#mode").val("固定访问");
+                }
+                if (user.mode === 2) {
+                    $("#mode").val("随机访问");
+                }
+                $("#domain").val(user.domainURL);
+                var desktops = user.desktops;
+                $('#desktopList').children().remove('li');
+                for (var i = 0; i < desktops.length; i++) {
+                    $("#desktopList").append('  <li data-role="list-divider">' + desktops[i].name + '</li>');
+                }
+                $("#desktopList").listview('refresh');
             }
             $(function () {
                 $.ajax({
@@ -48,7 +93,7 @@ and open the template in the editor.
                     dataType: "json",
                     data: {command: "getUserEntry"},
                     success: function (obj) {
-                        uerArrays = obj;
+                        userArrays = obj;
                         for (var i = 0; i < obj.length; i++) {
                             $("#userList").append(' <li class="userClass"><a  href="javascript:void(0)" onclick="fn(this)">' + obj[i].domainName + "\\" + obj[i].userName + '</a></li>');
                         }
@@ -56,11 +101,11 @@ and open the template in the editor.
                     }
                 });
             });
-//            $(function () {
-//                $(".userClass").click(function (e) {
-//                    alert(e);
-//                });
-//            });
+            //            $(function () {
+            //                $(".userClass").click(function (e) {
+            //                    alert(e);
+            //                });
+            //            });
         </script>
     </body>
 </html>
