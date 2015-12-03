@@ -27,7 +27,8 @@ and open the template in the editor.
         <div  data-role="page" id="jqm-home" class="type-home">
             <div data-role="content">
                 <div  class="content-secondary"  data-theme="a" >
-                    <a href="#dialog.html" data-rel="dialog" data-inline="true" data-role="button">Open dialog</a>
+                  <a href="#deploy.html" data-role="button" data-inline="true" data-rel="dialog" data-transition="pop" class="ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all" role="button">data-transition="pop"</a>
+                    <a href="#dialog.html" data-rel="dialog" data-inline="true" data-transition="pop" data-role="button">Open dialog</a>
                     <br/><br/><br/>
                     <ul data-role="listview" id="userList">
                         <li data-role="list-divider"> 用户列表 </li>
@@ -50,6 +51,14 @@ and open the template in the editor.
                     <input type="button" value="删除"/>
                 </div>
             </div>
+        </div>
+        <div data-role="page" data-url="dialog.html" style="min-width: 800px;min-height: 600px">
+            <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+                <a role="button" href="#jqm-home" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-left" data-transition="pop" data-direction="reverse">Close</a>
+			<h1 class="ui-title" role="heading" aria-level="1">Dialog</h1>
+
+		</div>
+            <iframe src="deploy.html" style="min-width: 800px;min-height: 600px"></iframe>
         </div>
         <script src="jquery.min.js"></script>
         <script>

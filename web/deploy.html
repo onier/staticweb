@@ -25,53 +25,56 @@ and open the template in the editor.
     <body>
         <div data-role="page"  id="readyDeploy">
             <div data-role="header">
-                <h1>新建部署</h1>
+<!--                <h1>新建部署</h1>
+                <a href="admin_main.html" data-role="button" id="cls_btn" >关闭对话框</a>-->
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
-                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
-                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
-                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                        <!--                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                                                <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                                                <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>-->
                     </ul>
                 </div>
             </div>
-            <div data-role="content" >
-                <table style="margin:0 auto;width: 400px">
-                    <tr>
-                        <td><label>域名:</label></td><td><input type=text id="domainURl"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>域地址:</label></td><td><input type=text id="domainAddr"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>管理员：</label></td><td><input type=text id="userName"/></td>
-                    </tr>
-                    <tr>
-                        <td><label>密码：</label></td><td><input type=password id="password"/></td>
-                    </tr>
-                    <tr>
-                        <td><label> </label></td><td align=right><button id="test" data-inline="true" >&nbsp;测试&nbsp;</button></td>
-                    </tr>
-                </table>
+            <div data-role="content" style="margin:0 auto;width: 400px; height: 400px" >
+                <div>
+                    <table >
+                        <tr>
+                            <td><label>域名:</label></td><td><input type=text id="domainURl"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>域地址:</label></td><td><input type=text id="domainAddr"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>管理员：</label></td><td><input type=text id="userName"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>密码：</label></td><td><input type=password id="password"/></td>
+                        </tr>
+                        <tr>
+                            <td><label> </label></td><td align=right><button id="test" data-inline="true" >&nbsp;测试&nbsp;</button></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div data-role="footer">
-                <h1>底部文本</h1>
+            <div data-role="footer" style="text-align: center">
+                <a href="#selectComputer" data-icon="arrow-r" data-transition="none" data-inline="true" data-role="button">下一步</a>
             </div>
         </div>
         <div data-role="page" id="selectComputer">
             <div data-role="header">
-                <h1>新建部署</h1>
+                <!--<h1>新建部署</h1>-->
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                        <!--<li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>-->
                         <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
-                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
-                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                        <!--                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                                                <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>-->
                     </ul>
                 </div>
             </div>
             <div data-role="content">
-                <div id="selectComputerDiv"  style="margin:0 auto;width: 400px">
+                <div id="selectComputerDiv"  style="margin:0 auto;width: 400px  ;height: 400px">
                     <fieldset data-role="controlgroup">
                         <legend>选择计算机</legend>
                         <input type="radio" name="radio-mini" id="radio-mini-1" value="choice-1" checked="checked" />
@@ -85,24 +88,24 @@ and open the template in the editor.
                     </fieldset>
                 </div>
             </div>
-            <div data-role="footer">
-                <h1>底部文本</h1>
+            <div data-role="footer"  style="text-align: center">
+                <a href="#selectUser" data-icon="arrow-r" data-transition="none" data-inline="true" data-role="button">下一步</a>
             </div>
         </div>
         <div data-role="page" id="selectUser">
             <div data-role="header">
-                <h1>新建部署</h1>
+                <!--<h1>新建部署</h1>-->
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
-                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                        <!--                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                                                <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>-->
                         <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
-                        <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
+                        <!--<li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>-->
                     </ul>
                 </div>
             </div>
             <div data-role="content">
-                <div id="selectUserDiv"  style="margin:0 auto;width: 400px">
+                <div id="selectUserDiv"  style="margin:0 auto;width: 400px;height: 400px">
                     <fieldset data-role="controlgroup">
                         <legend>选择用户</legend>
                         <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1"/>
@@ -119,29 +122,29 @@ and open the template in the editor.
                     </fieldset>
                 </div>
             </div>
-            <div data-role="footer">
-                <h1>底部文本</h1>
+            <div data-role="footer"  style="text-align: center">
+                <a href="#deploy" data-icon="arrow-r" data-transition="none" data-inline="true" data-role="button">下一步</a>
             </div>
         </div>
         <div data-role="page" id="deploy">
             <div data-role="header">
-                <h1>新建部署</h1>
+                <!--<h1>新建部署</h1>-->
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
-                        <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
-                        <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>
+                        <!--                        <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
+                                                <li><a href="#selectComputer" data-icon="arrow-r" data-transition="none">选择计算机</a></li>
+                                                <li><a href="#selectUser" data-icon="arrow-r" data-transition="none">选择用户</a></li>-->
                         <li><a href="#deploy" data-icon="arrow-r" data-transition="none">部署方式</a></li>
                     </ul>
                 </div>
             </div>
             <div data-role="content">
-                <div id="dopoyDiv"  style="margin:0 auto;width: 400px">
+                <div id="dopoyDiv"   style="margin:0 auto;width: 400px;height: 400px">
 
                 </div>
             </div>
-            <div data-role="footer">
-                <h1>底部文本</h1>
+            <div data-role="footer"  style="text-align: center">
+                <a href="#" data-icon="arrow-r" data-transition="none" data-inline="true" data-role="button">完成</a>
             </div>
         </div>
     </body>
