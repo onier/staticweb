@@ -27,8 +27,7 @@ and open the template in the editor.
         <div  data-role="page" id="jqm-home" class="type-home">
             <div data-role="content">
                 <div  class="content-secondary"  data-theme="a" >
-                  <a href="#deploy.html" data-role="button" data-inline="true" data-rel="dialog" data-transition="pop" class="ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all" role="button">data-transition="pop"</a>
-                    <a href="#dialog.html" data-rel="dialog" data-inline="true" data-transition="pop" data-role="button">Open dialog</a>
+                    <a href="#dialog.html" data-rel="dialog" data-inline="true" data-transition="pop" data-role="button">新建部署</a>
                     <br/><br/><br/>
                     <ul data-role="listview" id="userList">
                         <li data-role="list-divider"> 用户列表 </li>
@@ -54,73 +53,72 @@ and open the template in the editor.
         </div>
         <div data-role="page" data-url="dialog.html" style="min-width: 800px;min-height: 600px">
             <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
-                <a role="button" href="#jqm-home" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-left" data-transition="pop" data-direction="reverse">Close</a>
-			<h1 class="ui-title" role="heading" aria-level="1">Dialog</h1>
-
-		</div>
+                <a role="button" id="close_button" href="#jqm-home" class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-left" data-transition="pop" data-direction="reverse">Close</a>
+                <h1 class="ui-title" role="heading" aria-level="1">域部署</h1>
+            </div>
             <iframe src="deploy.html" style="min-width: 800px;min-height: 600px"></iframe>
         </div>
         <script src="jquery.min.js"></script>
         <script>
-            $(document).bind('mobileinit', function () {
-                $.mobile.changePage.defaults.changeHash = false;
-                $.mobile.hashListeningEnabled = false;
-                $.mobile.pushStateEnabled = false;
-            });
+                $(document).bind('mobileinit', function () {
+                    $.mobile.changePage.defaults.changeHash = false;
+                    $.mobile.hashListeningEnabled = false;
+                    $.mobile.pushStateEnabled = false;
+                });
         </script>
         <script src="jquery.mobile-1.4.5.min.js"></script>
         <script src="store+json2.min.js"></script>
         <script src="jquery.mobile.themeswitcher.js"></script>
         <script>
-            var userArrays;
-            function getUser(text) {
-                for (var i = 0; i < userArrays.length; i++) {
-                    if (text === (userArrays[i].domainName + "\\" + userArrays[i].userName)) {
-                        return userArrays[i];
-                    }
-                }
-                return null;
-            }
-            function fn(e) {
-                var user = (getUser(e.text));
-                $("#userName").val(user.userName);
-                if (user.mode === 0) {
-                    $("#mode").val("禁止访问");
-                }
-                if (user.mode === 1) {
-                    $("#mode").val("固定访问");
-                }
-                if (user.mode === 2) {
-                    $("#mode").val("随机访问");
-                }
-                $("#domain").val(user.domainURL);
-                var desktops = user.desktops;
-                $('#desktopList').children().remove('li');
-                for (var i = 0; i < desktops.length; i++) {
-                    $("#desktopList").append('  <li data-role="list-divider">' + desktops[i].name + '</li>');
-                }
-                $("#desktopList").listview('refresh');
-            }
-            $(function () {
-                $.ajax({
-                    url: "/deploy",
-                    type: "post",
-                    dataType: "json",
-                    data: {command: "getUserEntry"},
-                    success: function (obj) {
-                        userArrays = obj;
-                        for (var i = 0; i < obj.length; i++) {
-                            $("#userList").append(' <li class="userClass"><a  href="javascript:void(0)" onclick="fn(this)">' + obj[i].domainName + "\\" + obj[i].userName + '</a></li>');
+                var userArrays;
+                function getUser(text) {
+                    for (var i = 0; i < userArrays.length; i++) {
+                        if (text === (userArrays[i].domainName + "\\" + userArrays[i].userName)) {
+                            return userArrays[i];
                         }
-                        $("#userList").listview('refresh');
                     }
+                    return null;
+                }
+                function fn(e) {
+                    var user = (getUser(e.text));
+                    $("#userName").val(user.userName);
+                    if (user.mode === 0) {
+                        $("#mode").val("禁止访问");
+                    }
+                    if (user.mode === 1) {
+                        $("#mode").val("固定访问");
+                    }
+                    if (user.mode === 2) {
+                        $("#mode").val("随机访问");
+                    }
+                    $("#domain").val(user.domainURL);
+                    var desktops = user.desktops;
+                    $('#desktopList').children().remove('li');
+                    for (var i = 0; i < desktops.length; i++) {
+                        $("#desktopList").append('  <li data-role="list-divider">' + desktops[i].name + '</li>');
+                    }
+                    $("#desktopList").listview('refresh');
+                }
+                $(function () {
+                    $.ajax({
+                        url: "/deploy",
+                        type: "post",
+                        dataType: "json",
+                        data: {command: "getUserEntry"},
+                        success: function (obj) {
+                            userArrays = obj;
+                            for (var i = 0; i < obj.length; i++) {
+                                $("#userList").append(' <li class="userClass"><a  href="javascript:void(0)" onclick="fn(this)">' + obj[i].domainName + "\\" + obj[i].userName + '</a></li>');
+                            }
+                            $("#userList").listview('refresh');
+                        }
+                    });
                 });
-            });
-            //            $(function () {
-            //                $(".userClass").click(function (e) {
-            //                    alert(e);
-            //                });
-            //            });
+                //            $(function () {
+                //                $(".userClass").click(function (e) {
+                //                    alert(e);
+                //                });
+                //            });
         </script>
     </body>
 </html>

@@ -25,8 +25,8 @@ and open the template in the editor.
     <body>
         <div data-role="page"  id="readyDeploy">
             <div data-role="header">
-<!--                <h1>新建部署</h1>
-                <a href="admin_main.html" data-role="button" id="cls_btn" >关闭对话框</a>-->
+                <!--                <h1>新建部署</h1>
+                                <a href="admin_main.html" data-role="button" id="cls_btn" >关闭对话框</a>-->
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#readyDeploy" data-icon="arrow-r" data-transition="none">准备部署</a></li>
@@ -40,16 +40,16 @@ and open the template in the editor.
                 <div>
                     <table >
                         <tr>
-                            <td><label>域名:</label></td><td><input type=text id="domainURl"/></td>
+                            <td><label>域名:</label></td><td><input type=text  placeholder="xxx.com" id="domainURl" value="xenapp.com"/></td>
                         </tr>
                         <tr>
-                            <td><label>域地址:</label></td><td><input type=text id="domainAddr"/></td>
+                            <td><label>域地址:</label></td><td><input type=text placeholder="IP地址"  id="domainAddr" value="192.168.64.150"/></td>
                         </tr>
                         <tr>
-                            <td><label>管理员：</label></td><td><input type=text id="userName"/></td>
+                            <td><label>管理员：</label></td><td><input type=text  placeholder="域名\用户名" id="userName" value="xenapp\administrator"/></td>
                         </tr>
                         <tr>
-                            <td><label>密码：</label></td><td><input type=password id="password"/></td>
+                            <td><label>密码：</label></td><td><input type=password id="password" value="Keqisoft!"/></td>
                         </tr>
                         <tr>
                             <td><label> </label></td><td align=right><button id="test" data-inline="true" >&nbsp;测试&nbsp;</button></td>
@@ -74,18 +74,7 @@ and open the template in the editor.
                 </div>
             </div>
             <div data-role="content">
-                <div id="selectComputerDiv"  style="margin:0 auto;width: 400px  ;height: 400px">
-                    <fieldset data-role="controlgroup">
-                        <legend>选择计算机</legend>
-                        <input type="radio" name="radio-mini" id="radio-mini-1" value="choice-1" checked="checked" />
-                        <label for="radio-mini-1">Computer1</label>
-
-                        <input type="radio" name="radio-mini" id="radio-mini-2" value="choice-2"  />
-                        <label for="radio-mini-2">Computer2</label>
-
-                        <input type="radio" name="radio-mini" id="radio-mini-3" value="choice-3"  />
-                        <label for="radio-mini-3">Computer3</label>
-                    </fieldset>
+                <div id="computers"  style="margin:0 auto;width: 400px  ;height: 400px">
                 </div>
             </div>
             <div data-role="footer"  style="text-align: center">
@@ -105,21 +94,7 @@ and open the template in the editor.
                 </div>
             </div>
             <div data-role="content">
-                <div id="selectUserDiv"  style="margin:0 auto;width: 400px;height: 400px">
-                    <fieldset data-role="controlgroup">
-                        <legend>选择用户</legend>
-                        <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1"/>
-                        <label for="radio-choice-1">user1</label>
-
-                        <input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  />
-                        <label for="radio-choice-2">user2</label>
-
-                        <input type="radio" name="radio-choice" id="radio-choice-3" value="choice-3"  />
-                        <label for="radio-choice-3">user3</label>
-
-                        <input type="radio" name="radio-choice" id="radio-choice-4" value="choice-4"  />
-                        <label for="radio-choice-4">user4</label>
-                    </fieldset>
+                <div id="users"  style="margin:0 auto;width: 400px  ;height: 400px">
                 </div>
             </div>
             <div data-role="footer"  style="text-align: center">
@@ -140,12 +115,149 @@ and open the template in the editor.
             </div>
             <div data-role="content">
                 <div id="dopoyDiv"   style="margin:0 auto;width: 400px;height: 400px">
-
+                    <fieldset data-role="fieldcontain">
+                        <label for="day">选择模式</label>
+                        <select name="day" id="modeselect">
+                            <option value="mon">随机分配</option>
+                            <!--<option value="tue">手动分配</option>-->
+                        </select>
+                    </fieldset>
+                    <table id="designTable" style="background-color: red">
+                        <tr>
+                            <td> <div id="selectComputers" >
+                                </div>
+                            </td><td>&nbsp;&nbsp;</td><td> <div id="selectUsers" >
+                                </div></td>
+                        </tr>
+                    </table>
                 </div>
+
             </div>
             <div data-role="footer"  style="text-align: center">
-                <a href="#" data-icon="arrow-r" data-transition="none" data-inline="true" data-role="button">完成</a>
+                <a  href="javascript:void(0);" onclick="deploy()" data-icon="arrow-r" data-transition="none" data-inline="true" data-role="button">完成</a>
             </div>
         </div>
+        <script>
+            var users;
+            var computers;
+            var selectUsers;
+            var selectComputers;
+            $("#designTable").hide();
+            function getComRadioHtml(index, name) {
+                return  '<div class="ui-checkbox"><label for="computer' + index + '" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">' + name + '</label><input type="checkbox" name="computer' + index + '" id="computer' + index + '" data-cacheval="true"></div>';
+            }
+            function deploy() {
+                var selectUsers = getSlectUsers();
+                var selectComputers = getSlectComputers();
+                var userName = ($("#userName").val());
+                var password = $("#password").val();
+                var ipAddr = $("#domainAddr").val();
+                var domain = $("#domainURl").val();
+                $.ajax({
+                    url: "/deploy",
+                    type: "post",
+                    dataType: "json",
+                    data: {command: "deployRandom", selectUsers: JSON.stringify(selectUsers), selectComputers: JSON.stringify(selectComputers), userName: userName, password: password, ipAddr: ipAddr, domain: domain},
+                    success: function (obj) {
+                        userArrays = obj;
+                        for (var i = 0; i < obj.length; i++) {
+                            $("#userList").append(' <li class="userClass"><a  href="javascript:void(0)" onclick="fn(this)">' + obj[i].domainName + "\\" + obj[i].userName + '</a></li>');
+                        }
+                        $("#userList").listview('refresh');
+                    }
+                });
+            }
+            function getUserRadioHtml(index, name) {
+                return  '<div class="ui-checkbox"><label for="user' + index + '" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">' + name + '</label><input type="checkbox" name="user' + index + '" id="user' + index + '" data-cacheval="true"></div>';
+            }
+            $("#modeselect").change(function () {
+                if ($("#modeselect option:selected").text() === "手动分配") {
+                    $("#designTable").show();
+                } else {
+                    $("#designTable").hide();
+                }
+                var selectComputers = getSlectComputers();
+                if (selectComputers !== null) {
+                    for (var i = 0; i < selectComputers.length; i++) {
+                        $("#computers").append(getComRadioHtml(i, selectComputers[i].name));
+                    }
+                }
+            });
+            function loadComputers() {
+                if (computers !== null) {
+                    for (var i = 0; i < computers.length; i++) {
+                        $("#computers").append(getComRadioHtml(i, computers[i].name));
+                    }
+                }
+            }
+
+            function loadUser() {
+                if (users !== null) {
+                    for (var i = 0; i < users.length; i++) {
+                        $("#users").append(getUserRadioHtml(i, users[i]));
+                    }
+                }
+            }
+
+            function getSlectComputers() {
+                var list1 = new Array();
+                if (computers !== null) {
+                    for (var i = 0; i < computers.length; i++) {
+                        if ($("#" + 'computer' + i).is(':checked')) {
+                            list1.push(computers[i]);
+                        }
+                    }
+                }
+                return list1;
+            }
+
+            function getSlectUsers() {
+                var list1 = new Array();
+                if (users !== null) {
+                    for (var i = 0; i < users.length; i++) {
+                        if ($("#" + 'user' + i).is(':checked')) {
+                            list1.push(users[i]);
+                        }
+                    }
+                }
+                return list1;
+            }
+
+
+            $("#test").click(function () {
+                var userName = ($("#userName").val());
+                var password = $("#password").val();
+                var ipAddr = $("#domainAddr").val();
+                var domain = $("#domainURl").val();
+                jQuery.support.cors = true;
+                $.ajax({
+                    url: "/deploy",
+                    type: "post",
+                    dataType: "json",
+                    data: {command: 'getDomainUsers', userName: userName, password: password, ipAddr: ipAddr, domain: domain},
+                    success: function (strData) {
+                        if (strData === null) {
+                        } else {
+                            users = strData;
+                            loadUser();
+                        }
+                    }
+                });
+                $.ajax({
+                    url: "/deploy",
+                    type: "post",
+                    dataType: "json",
+                    data: {command: 'getDomainComputers', userName: userName, password: password, ipAddr: ipAddr, domain: domain},
+                    success: function (strData) {
+                        if (strData === null) {
+                            alert("连接失败");
+                        } else {
+                            computers = strData;
+                            loadComputers();
+                        }
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
